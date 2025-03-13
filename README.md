@@ -83,11 +83,19 @@ curl -X 'GET' 'https://bpc-pos-admin-panel-api.nibies.space/health' -H 'accept: 
 
 2. Khi Lambda trigger auto-healing, CI/CD sẽ được kích hoạt lại để deploy source code lên instance mới.
 
-##hướng dẫn:
+## Hướng dẫn:
+```bash
 cd terraform-test
+```
+```bash
 terraform init
+```
+```bash
 terraform plan
+```
+```bash
 terraform apply
+```
 
 để tắt:
 aws ec2 describe-spot-fleet-requests --query "SpotFleetRequestConfigs[*].SpotFleetRequestId"
