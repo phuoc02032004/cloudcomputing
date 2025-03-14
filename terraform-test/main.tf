@@ -107,7 +107,7 @@ resource "aws_launch_template" "spot_instance" {
               apt-get install docker.io -y
               systemctl start docker
               systemctl enable docker
-              # docker run -d -p 3000:3000 ${var.docker_image} # Tạm thời comment để test cài Docker trước
+              docker run -d -p 3000:3000 ${var.docker_image} # Tạm thời comment để test cài Docker trước
               EOF
   )
 }
