@@ -96,6 +96,8 @@ terraform plan
 ```bash
 terraform apply
 ```
+các dịch vụ đang chạy
+aws ec2 describe-instances --filters "Name=tag:Name,Values=nestjs-spot-instance-*"
 
 để tắt:
 aws ec2 describe-spot-fleet-requests --query "SpotFleetRequestConfigs[*].SpotFleetRequestId"

@@ -74,6 +74,13 @@ resource "aws_security_group" "allow_http" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+    ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # **CẢNH BÁO: Mở từ mọi nguồn IP, nên giới hạn nếu có thể**
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -84,17 +91,23 @@ resource "aws_security_group" "allow_http" {
 
 resource "aws_launch_template" "spot_instance" {
   name_prefix   = "nestjs-spot-instance-"
-  image_id      = var.ami_id
+  image_id      = var.ami_id  # Sử dụng var.ami_id đã được cập nhật thành Ubuntu AMI
   instance_type = var.instance_type
+  key_name      = "phuocphuoc"
 
   network_interfaces {
     associate_public_ip_address = true
     security_groups             = [aws_security_group.allow_http.id]
   }
 
+  # **USER DATA SCRIPT CHO UBUNTU (SỬ DỤNG APT-GET)**
   user_data = base64encode(<<-EOF
               #!/bin/bash
-              docker run -d -p 3000:3000 ${var.docker_image}
+              apt-get update -y
+              apt-get install docker.io -y
+              systemctl start docker
+              systemctl enable docker
+              # docker run -d -p 3000:3000 ${var.docker_image} # Tạm thời comment để test cài Docker trước
               EOF
   )
 }

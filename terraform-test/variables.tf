@@ -10,7 +10,7 @@ variable "instance_type" {
 
 variable "ami_id" {
   description = "ID của AMI cho EC2 Spot instance"
-  default     = "ami-08b5b3a93ed654d19" # **CẦN THAY ĐỔI: AMI ID phù hợp với region và hệ điều hành**
+  default     = "ami-04b4f1a9cf54c11d0" 
 }
 
 variable "spot_price" {
